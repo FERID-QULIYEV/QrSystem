@@ -6,6 +6,7 @@ namespace QrSystem.ViewModel
     {
         public Dictionary<int, Dictionary<string, List<BasketİtemVM>>> UrunlerByQrCodeAndTable { get; set; }
         public List<SaxlanilanSifarish>saxlanilanSifarishes { get; set; }
+        public int? Count { get; set; }
         public UrunlerViewModel()
         {
             UrunlerByQrCodeAndTable = new Dictionary<int, Dictionary<string, List<BasketİtemVM>>>();

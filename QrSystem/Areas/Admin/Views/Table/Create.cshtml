@@ -4,18 +4,25 @@
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label asp-for="QrCodeId"></label>
-                <input asp-for="QrCodeId" class="form-control">
-                <span asp-validation-for="QrCodeId" class="text-danger"></span>
+                <select asp-for="QrCodeId" class="form-control">
+                    <option value="">Seçiniz</option>
+                    @if (ViewBag.QrCode != null)
+                    {
+                        foreach (SelectListItem product in ViewBag.QrCode)
+                        {
+                            var modelId = Convert.ToInt32(product.Value);
+                            var models = ViewBag.QrCode as List<ParentCategory>;
+                            var model = models?.FirstOrDefault(m => m.Id == modelId);
+
+                            <option value="@product.Value">@product.Text</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="QrCodeId"></span>
 
                 <label asp-for="TableNumber"></label>
                 <input asp-for="TableNumber" class="form-control">
                 <span asp-validation-for="TableNumber" class="text-danger"></span>
-
-                <div class="form-group">
-                    <label asp-for="RestorantId"></label>
-                    <input asp-for="RestorantId" class="form-control" readonly>
-                    <span asp-validation-for="RestorantId" class="text-danger"></span>
-                </div>
             </div>
             <button class="btn btn-success" type="submit">Submit</button>
         </form>

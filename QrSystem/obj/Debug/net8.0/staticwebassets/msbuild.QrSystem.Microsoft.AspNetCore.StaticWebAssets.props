@@ -3408,6 +3408,38 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\frontend\wpchatplugin\wpchatcustom.css))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\118dd80c-a939-4418-8541-1be9fc067cbcshaurma-lawashda.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>QrSystem</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/QrSystem</BasePath>
+      <RelativePath>Image/Product/118dd80c-a939-4418-8541-1be9fc067cbcshaurma-lawashda.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\118dd80c-a939-4418-8541-1be9fc067cbcshaurma-lawashda.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\154e66c0-c7a0-4629-99b2-4fcc42e85894shaurma-lawashda.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>QrSystem</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/QrSystem</BasePath>
+      <RelativePath>Image/Product/154e66c0-c7a0-4629-99b2-4fcc42e85894shaurma-lawashda.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\154e66c0-c7a0-4629-99b2-4fcc42e85894shaurma-lawashda.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\165190c4-90bb-4d4a-b1b5-f5a1030a916eCiyerkabab.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>QrSystem</SourceId>
@@ -3472,6 +3504,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\19c8322f-e8d0-4715-991e-ce49c4ec904dpiza.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\337f0623-5c7a-4ffd-b509-a050d6dc76e0shaurma-lawashda.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>QrSystem</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/QrSystem</BasePath>
+      <RelativePath>Image/Product/337f0623-5c7a-4ffd-b509-a050d6dc76e0shaurma-lawashda.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\337f0623-5c7a-4ffd-b509-a050d6dc76e0shaurma-lawashda.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\3cd0dd12-1344-4636-acc1-0c8ccc61867cpiza.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>QrSystem</SourceId>
@@ -3487,6 +3535,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\3cd0dd12-1344-4636-acc1-0c8ccc61867cpiza.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\3d5d1802-580f-4008-b3aa-c5d5c3f3fcfcshaurma-lawashda.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>QrSystem</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/QrSystem</BasePath>
+      <RelativePath>Image/Product/3d5d1802-580f-4008-b3aa-c5d5c3f3fcfcshaurma-lawashda.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\3d5d1802-580f-4008-b3aa-c5d5c3f3fcfcshaurma-lawashda.jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\482f439c-3444-424f-9657-b01180aa0898c25cb72e02cb2f8c74abad5e0fa2eb42.jpg))">
       <SourceType>Package</SourceType>
@@ -3679,6 +3743,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\8afe03cb-5df9-463b-9d35-071a974c722dmonyoo.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\8c83b062-401c-4a49-aa5a-cce4f4326ac9coca-cola.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>QrSystem</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/QrSystem</BasePath>
+      <RelativePath>Image/Product/8c83b062-401c-4a49-aa5a-cce4f4326ac9coca-cola.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\8c83b062-401c-4a49-aa5a-cce4f4326ac9coca-cola.jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Image\Product\8f1d6ad6-faff-4449-ae62-dfe9935cd4abCiyerkabab.jpg))">
       <SourceType>Package</SourceType>
@@ -11856,6 +11936,54 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\QrSystem.bundle.scp.css))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Restorant\Image\10b57b32-443a-478e-b0dc-73336a30b0c1Saurma.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>QrSystem</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/QrSystem</BasePath>
+      <RelativePath>Restorant/Image/10b57b32-443a-478e-b0dc-73336a30b0c1Saurma.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Restorant\Image\10b57b32-443a-478e-b0dc-73336a30b0c1Saurma.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Restorant\Image\1693567f-2d47-4bf9-9c32-0a86456bbe2aSaurma.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>QrSystem</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/QrSystem</BasePath>
+      <RelativePath>Restorant/Image/1693567f-2d47-4bf9-9c32-0a86456bbe2aSaurma.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Restorant\Image\1693567f-2d47-4bf9-9c32-0a86456bbe2aSaurma.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Restorant\Image\1a221cc1-c468-4ea2-98e5-c2214e1e3f0bSaurma.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>QrSystem</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/QrSystem</BasePath>
+      <RelativePath>Restorant/Image/1a221cc1-c468-4ea2-98e5-c2214e1e3f0bSaurma.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Restorant\Image\1a221cc1-c468-4ea2-98e5-c2214e1e3f0bSaurma.png))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Restorant\Image\62a39377-a6a2-4bff-9057-3a2e2dd4a228Ozsut12.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>QrSystem</SourceId>
@@ -11871,6 +11999,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Restorant\Image\62a39377-a6a2-4bff-9057-3a2e2dd4a228Ozsut12.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Restorant\Image\72ac53e2-64b9-4949-ae5e-f049b0eac19eSaurma.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>QrSystem</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/QrSystem</BasePath>
+      <RelativePath>Restorant/Image/72ac53e2-64b9-4949-ae5e-f049b0eac19eSaurma.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Restorant\Image\72ac53e2-64b9-4949-ae5e-f049b0eac19eSaurma.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Restorant\Image\74d8e5ef-465e-405b-b756-c8a4c8b4f277logo (5).png))">
       <SourceType>Package</SourceType>

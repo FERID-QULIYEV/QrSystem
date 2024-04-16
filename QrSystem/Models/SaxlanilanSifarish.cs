@@ -5,8 +5,10 @@ namespace QrSystem.Models
 {
     public class SaxlanilanSifarish:Base
     {
+        public int? SifarislerSayi { get; set; }
+        public double? ToplamGelir { get; set; }
         public string Name { get; set; }
-
+        public DateTime? Timer { get; set; }
         public string Description { get; set; }
 
         public double Price { get; set; }
@@ -16,7 +18,6 @@ namespace QrSystem.Models
 
         public bool IsDeleted { get; set; }
         public string ImagePath { get; set; }
-
         public int ProductCount { get; set; }
         public Restorant Restorant { get; set; }
         public int? RestorantId { get; set; }

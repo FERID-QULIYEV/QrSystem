@@ -11,7 +11,7 @@ using System.Security.Claims;
 namespace QrSystem.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Moderator")]
     public class QrCodeController: Controller
     {
         private readonly UserManager<AppUser> _userManager;

@@ -8,8 +8,7 @@ namespace QrSystem.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
-  
+    [Authorize(Roles = "Moderator")]
     public class HomeController : Controller
     {
         readonly AppDbContext _context;

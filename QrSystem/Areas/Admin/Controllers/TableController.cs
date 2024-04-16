@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QrSystem.DAL;
+using QrSystem.Migrations;
 using QrSystem.Models;
 using QrSystem.Models.Auth;
 using QrSystem.ViewModel;
@@ -12,7 +13,7 @@ using System.Security.Claims;
 namespace QrSystem.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Moderator")]
     public class TableController:Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -37,21 +38,19 @@ namespace QrSystem.Areas.Admin.Controllers
         }
 
         // Kullanıcının bağlı olduğu restoranın ID'sini döndüren yardımcı bir metot
-        private int GetCurrentUserRestorantId()
-        {
-            // Kullanıcının kimliğini alın
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            // Kullanıcının bağlı olduğu restoranın ID'sini veritabanından alın
-            var user = _userManager.FindByIdAsync(userId).Result;
-            var restorantId = user.RestorantId;
-
-            return restorantId.HasValue ? restorantId.Value : 0; // Varsayılan değer olarak 0 kullanıldı, siz istediğiniz bir değeri verebilirsiniz.
-        }
+        
         public IActionResult Create()
         {
-            // Kullanıcının bağlı olduğu restoranın ID'sini alın
             int restorantId = GetCurrentUserRestorantId();
+            List<QrCode> qrCodes = _context.QrCodes.ToList();
+            List<SelectListItem> parentiTEMs = qrCodes.Where(p => p.RestorantId == restorantId).Select(p => new SelectListItem
+            {
+                Value = p.Id.ToString(),
+                Text=p.QRCode.ToString()
+            }).ToList();
+
+            ViewBag.QrCode = parentiTEMs;
+            // Kullanıcının bağlı olduğu restoranın ID'sini alın
 
             // Restoran ID'si bulunamazsa hata mesajı döndürün veya uygun bir işlem yapın
             if (restorantId == 0)
@@ -78,13 +77,15 @@ namespace QrSystem.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Update(int? id)
         {
+            int restorantId = GetCurrentUserRestorantId();
             List<QrCode> qrCodes = _context.QrCodes.ToList();
-            List<SelectListItem> parentiTEMs = qrCodes.Select(p => new SelectListItem
+            List<SelectListItem> BigparentiTEMs = qrCodes.Where(p => p.RestorantId == restorantId).Select(p => new SelectListItem
             {
                 Value = p.Id.ToString(),
+                Text = p.QRCode.ToString()
             }).ToList();
 
-            ViewBag.QrCodes = parentiTEMs;
+            ViewBag.QrCode = BigparentiTEMs;
             if (id == null || id == 0) return BadRequest();
             RestourantTables table = _context.Tables.Find(id);
             if (table is null) return NotFound();
@@ -93,10 +94,12 @@ namespace QrSystem.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(int? id, RestourantTables table)
         {
+            int restorantId = GetCurrentUserRestorantId();
             List<QrCode> qrCodes = _context.QrCodes.ToList();
-            List<SelectListItem> BigparentiTEMs = qrCodes.Select(p => new SelectListItem
+            List<SelectListItem> BigparentiTEMs = qrCodes.Where(p => p.RestorantId == restorantId).Select(p => new SelectListItem
             {
                 Value = p.Id.ToString(),
+                Text = p.QRCode.ToString()
             }).ToList();
             ViewBag.QrCode = BigparentiTEMs;
             if (id == null || id == 0 || id != table.Id || table is null) return BadRequest();
@@ -115,6 +118,17 @@ namespace QrSystem.Areas.Admin.Controllers
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
+        }
+        private int GetCurrentUserRestorantId()
+        {
+            // Kullanıcının kimliğini alın
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Kullanıcının bağlı olduğu restoranın ID'sini veritabanından alın
+            var user = _userManager.FindByIdAsync(userId).Result;
+            var restorantId = user.RestorantId;
+
+            return restorantId.HasValue ? restorantId.Value : 0; // Varsayılan                   l olarak 0 kullanıldı, siz istediğiniz bir değeri verebilirsiniz.
         }
     }
 }

@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\QrSystem.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Image\\Product\\118dd80c-a939-4418-8541-1be9fc067cbcshaurma-lawashda.jpg",
+      "PackagePath": "staticwebassets\\Image\\Product\\118dd80c-a939-4418-8541-1be9fc067cbcshaurma-lawashda.jpg"
+    },
+    {
+      "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Image\\Product\\154e66c0-c7a0-4629-99b2-4fcc42e85894shaurma-lawashda.jpg",
+      "PackagePath": "staticwebassets\\Image\\Product\\154e66c0-c7a0-4629-99b2-4fcc42e85894shaurma-lawashda.jpg"
+    },
+    {
       "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Image\\Product\\165190c4-90bb-4d4a-b1b5-f5a1030a916eCiyerkabab.jpg",
       "PackagePath": "staticwebassets\\Image\\Product\\165190c4-90bb-4d4a-b1b5-f5a1030a916eCiyerkabab.jpg"
     },
@@ -21,8 +29,16 @@
       "PackagePath": "staticwebassets\\Image\\Product\\19c8322f-e8d0-4715-991e-ce49c4ec904dpiza.jpg"
     },
     {
+      "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Image\\Product\\337f0623-5c7a-4ffd-b509-a050d6dc76e0shaurma-lawashda.jpg",
+      "PackagePath": "staticwebassets\\Image\\Product\\337f0623-5c7a-4ffd-b509-a050d6dc76e0shaurma-lawashda.jpg"
+    },
+    {
       "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Image\\Product\\3cd0dd12-1344-4636-acc1-0c8ccc61867cpiza.jpg",
       "PackagePath": "staticwebassets\\Image\\Product\\3cd0dd12-1344-4636-acc1-0c8ccc61867cpiza.jpg"
+    },
+    {
+      "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Image\\Product\\3d5d1802-580f-4008-b3aa-c5d5c3f3fcfcshaurma-lawashda.jpg",
+      "PackagePath": "staticwebassets\\Image\\Product\\3d5d1802-580f-4008-b3aa-c5d5c3f3fcfcshaurma-lawashda.jpg"
     },
     {
       "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Image\\Product\\482f439c-3444-424f-9657-b01180aa0898c25cb72e02cb2f8c74abad5e0fa2eb42.jpg",
@@ -71,6 +87,10 @@
     {
       "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Image\\Product\\8afe03cb-5df9-463b-9d35-071a974c722dmonyoo.jpg",
       "PackagePath": "staticwebassets\\Image\\Product\\8afe03cb-5df9-463b-9d35-071a974c722dmonyoo.jpg"
+    },
+    {
+      "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Image\\Product\\8c83b062-401c-4a49-aa5a-cce4f4326ac9coca-cola.jpg",
+      "PackagePath": "staticwebassets\\Image\\Product\\8c83b062-401c-4a49-aa5a-cce4f4326ac9coca-cola.jpg"
     },
     {
       "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Image\\Product\\8f1d6ad6-faff-4449-ae62-dfe9935cd4abCiyerkabab.jpg",
@@ -125,8 +145,24 @@
       "PackagePath": "staticwebassets\\Image\\Product\\vegetarian-turkish-pide-recipe-8.jpg"
     },
     {
+      "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Restorant\\Image\\10b57b32-443a-478e-b0dc-73336a30b0c1Saurma.png",
+      "PackagePath": "staticwebassets\\Restorant\\Image\\10b57b32-443a-478e-b0dc-73336a30b0c1Saurma.png"
+    },
+    {
+      "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Restorant\\Image\\1693567f-2d47-4bf9-9c32-0a86456bbe2aSaurma.png",
+      "PackagePath": "staticwebassets\\Restorant\\Image\\1693567f-2d47-4bf9-9c32-0a86456bbe2aSaurma.png"
+    },
+    {
+      "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Restorant\\Image\\1a221cc1-c468-4ea2-98e5-c2214e1e3f0bSaurma.png",
+      "PackagePath": "staticwebassets\\Restorant\\Image\\1a221cc1-c468-4ea2-98e5-c2214e1e3f0bSaurma.png"
+    },
+    {
       "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Restorant\\Image\\62a39377-a6a2-4bff-9057-3a2e2dd4a228Ozsut12.jpg",
       "PackagePath": "staticwebassets\\Restorant\\Image\\62a39377-a6a2-4bff-9057-3a2e2dd4a228Ozsut12.jpg"
+    },
+    {
+      "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Restorant\\Image\\72ac53e2-64b9-4949-ae5e-f049b0eac19eSaurma.png",
+      "PackagePath": "staticwebassets\\Restorant\\Image\\72ac53e2-64b9-4949-ae5e-f049b0eac19eSaurma.png"
     },
     {
       "Id": "C:\\Users\\R\\Desktop\\QrSystem\\QrSystem\\wwwroot\\Restorant\\Image\\74d8e5ef-465e-405b-b756-c8a4c8b4f277logo (5).png",

@@ -14,7 +14,7 @@ using System.Security.Claims;
 namespace QrSystem.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Moderator")]
     public class ProductController: Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -62,6 +62,14 @@ namespace QrSystem.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
+            List<ParentCategory> Parent = _context.ParentsCategories.ToList();
+            List<SelectListItem> Select = Parent.Select(m => new SelectListItem
+            {
+                Value = m.Id.ToString(),
+                Text = m.Name
+            }).ToList();
+
+            ViewBag.Parents = Select;
             // Kullanıcının bağlı olduğu restoranın ID'sini alın
             int restorantId = GetCurrentUserRestorantId();
 

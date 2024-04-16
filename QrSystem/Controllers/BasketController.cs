@@ -107,6 +107,7 @@ namespace QrSystem.Controllers
             {
                 basketItem.Count++;
             }
+
             else
             {
                 basketVMList.Add(new BasketVM { ProductId = productId, Count = 1 });

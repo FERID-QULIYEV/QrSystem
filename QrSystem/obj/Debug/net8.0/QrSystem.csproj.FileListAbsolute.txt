@@ -141,3 +141,4 @@ C:\Users\R\Desktop\QrSystem\QrSystem\obj\Debug\net8.0\refint\QrSystem.dll
 C:\Users\R\Desktop\QrSystem\QrSystem\obj\Debug\net8.0\QrSystem.pdb
 C:\Users\R\Desktop\QrSystem\QrSystem\obj\Debug\net8.0\QrSystem.genruntimeconfig.cache
 C:\Users\R\Desktop\QrSystem\QrSystem\obj\Debug\net8.0\ref\QrSystem.dll
+C:\Users\R\Desktop\QrSystem\QrSystem\obj\Debug\net8.0\QrSystem.sourcelink.json

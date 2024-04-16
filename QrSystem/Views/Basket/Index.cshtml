@@ -274,7 +274,7 @@
                         <form id="checkoutForm" asp-action="Checkout" asp-route-qrCodeId="@ViewBag.QrCodeId" method="post" class="cart-processes" onsubmit="submitForm(event)">
                             @foreach (var item in Model)
                             {
-
+                                
                                 Allprice = @item.Price * @item.ProductCount + @Allprice;
 
 

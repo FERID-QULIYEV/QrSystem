@@ -7,17 +7,19 @@ using QrSystem.DAL;
 using QrSystem.Models;
 using QrSystem.Models.Auth;
 using QrSystem.ViewModel;
+using System.Linq;
 using System.Security.Claims;
 
 namespace QrSystem.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Moderator")]
     public class AllBasketController: Controller
     {
         private const string COOKIES_BASKET = "basketVM";
         private readonly AppDbContext _appDbContext;
         private readonly UserManager<AppUser> _userManager;
+        int count=0;
         public AllBasketController(AppDbContext appDbContext, UserManager<AppUser> userManager)
         {
             _appDbContext = appDbContext;
@@ -37,7 +39,7 @@ namespace QrSystem.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public IActionResult DeleteProducts(int qrCodeId)
+        public IActionResult DeleteProducts(int qrCodeId,HesabatVM hesabatvm)
         {
             try
             {
@@ -48,13 +50,35 @@ namespace QrSystem.Areas.Admin.Controllers
                 var productsToDelete = _appDbContext.SaxlanilanS
                     .Where(p => p.QrCodeId == qrCodeId && p.RestorantId == restoranId)
                     .ToList();
-
+                                                     
                 // Bulunan ürünlerin IsDeleted özelliğini true olarak güncelle
+                double Gelir = 0;
+
+                int say = 1;
+
                 foreach (var product in productsToDelete)
                 {
                     product.IsDeleted = true;
-                }
+                    if (restoranId == product.RestorantId) { Gelir += product.Price * product.ProductCount; }
 
+                    //if (productsToDelete)
+                    //{
+
+                    //}
+                    say = productsToDelete.Count;
+                }
+                hesabatvm.ToplamGelir = Gelir;
+                hesabatvm.RestoranId= restoranId;
+                Hesabat hesabat = new Hesabat()
+                {
+                    SifarislerSayi = say,
+                    DateTime = DateTime.Now,
+                    ToplamGelir = Gelir,
+                    RestorantId = hesabatvm.RestoranId,
+
+                };
+                //hesabat.SifarislerSayi = saxlanilan.SifarislerSayi;
+                _appDbContext.Hesabats.Add(hesabat);
                 _appDbContext.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -78,6 +102,33 @@ namespace QrSystem.Areas.Admin.Controllers
                 .Where(a => !a.IsDeleted && a.RestorantId == restoranId)
                 .ToList();
 
+            // Veri var mı kontrol edelim
+            //if (approvedProducts.Any())
+            //{
+            //    viewModel.saxlanilanSifarishes = approvedProducts;
+
+            //    // Her bir ürünün fiyatını toplam fiyata ekle
+            //    foreach (var product in approvedProducts)
+            //    {
+            //        totalPrices += product.Price * product.ProductCount;
+            //    }
+            //}
+            //else
+            //{
+            //    // Veri yoksa, bir boş liste atayalım veya null olarak bırakalım
+            //    viewModel.saxlanilanSifarishes = new List<SaxlanilanSifarish>(); // veya null
+            //}
+            // Veri var mı kontrol edelim
+            if (approvedProducts.Any())
+            {
+                viewModel.saxlanilanSifarishes = approvedProducts;
+            }
+            else
+            {
+                // Veri yoksa, bir boş liste atayalım veya null olarak bırakalım
+                viewModel.saxlanilanSifarishes = new List<SaxlanilanSifarish>(); // veya null
+            }
+
             foreach (var product in approvedProducts)
             {
                 // Ürünlerin QR kodu ve masa numarası bilgilerini ViewModel'e ekleyin
@@ -100,10 +151,12 @@ namespace QrSystem.Areas.Admin.Controllers
                     ImagePath = product.ImagePath,
                     TableName = product.TableName,
                 });
+                //viewModel.Count+=product.ProductCount;
             }
 
             return View(viewModel);
         }
+
 
         private int GetCurrentUserRestorantId()
         {

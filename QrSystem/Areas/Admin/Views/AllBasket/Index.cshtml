@@ -16,6 +16,9 @@
             <div class="row" id="row-@qrCodeId">
                 <div class="col">
                     <h3>Masa Numarası @qrCodeId</h3>
+                        <div>Toplam Müştəri @Model.saxlanilanSifarishes.FirstOrDefault().SifarislerSayi</div>
+                    @* <div>Bu Gün Toplam Gəlir @Model.saxlanilanSifarishes.FirstOrDefault()?.Price</div>
+                    <div>Bu Gün Toplam Müştəri @Model.saxlanilanSifarishes.FirstOrDefault()?.Id</div> *@
                     <table class="table">
                         <thead>
                             <tr>
@@ -24,6 +27,7 @@
                                 <th>Fiyat</th>
                                 <th>Ürün Adedi</th>
                                 <th>Resim</th>
+                                <th>Zaman</th>
                                 @* <th>Comment</th> *@
                                
                             </tr>
@@ -36,31 +40,107 @@
                             {
                                 foreach (var product in kvp.Value.GroupBy(p => p.Name))
                                 {
+                                    var productId = product.First().Id; // Ürünün benzersiz kimliğini al
+
                                     <tr>
                                         <td>@product.Key</td>
                                         <td>@product.First().Description</td>
                                         <td>@product.First().Price</td>
                                         <td>@product.Sum(p => p.ProductCount)</td>
                                         <td><img src="~/Image/Product/@product.First().ImagePath" alt="@product.Key" width="100" height="100" /></td>
-                                       @* <td>@product.FirstOrDefault().Comment</td> *@
+                                        <td>
+                                            <label for="dakikaSecimi_@productId">Dakika Seçimi:</label>
+                                            <select id="dakikaSecimi_@productId">
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                                <option value="30">30</option>
+                                                <option value="40">40</option>
+                                            </select>
+                                            <button onclick="baslat('@productId')">Timer Başlat</button>
+                                            @* <button onclick="durdur('@productId')">Timer Durdur</button> *@
+                                            <p id="geriSayim_@productId"></p>
+                                        </td>
                                     </tr>
                                 }
-
                             }
+
+
                        
                         
                         </tbody>
                     </table>
 
-                    <form id="form-@qrCodeId" method="post" asp-controller="AllBasket" asp-action="DeleteProducts">
-                        <input type="hidden" name="qrCodeId" value="@qrCodeId" />
-                        <button type="submit" class="btn btn-danger">Sil</button>
-                    </form>
+                    
 
+                    <form id="form-@qrCodeId" method="post" asp-controller="AllBasket" asp-action="DeleteProducts" onsubmit="return false;">
+                        <input type="hidden" name="qrCodeId" value="@qrCodeId" />
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete(@qrCodeId)">Sil</button>
+                    </form>
                 </div>
             </div>
         }
     </div>
+    <script>
+        function confirmDelete(qrCodeId) {
+            if (confirm("Bu ürünleri silmek istediğinize emin misiniz?")) {
+                // Kullanıcı Evet'i seçtiyse, formu submit et
+                var form = document.getElementById('form-' + qrCodeId);
+                form.submit();
+            } else {
+                // Kullanıcı Hayır'ı seçtiyse, hiçbir işlem yapma
+            }
+        }
+    </script>
+    
+
+    <script>
+        // Her bir ürünün zamanlayıcılarını saklamak için bir nesne oluşturuyoruz
+        var zamanlayicilar = {};
+
+        // Belirli bir ürünün zamanlayıcısını başlatan fonksiyon
+        function baslat(productId) {
+            var dakikaSecimi = document.getElementById("dakikaSecimi_" + productId);
+            var geriSayim = document.getElementById("geriSayim_" + productId);
+            var dakika = parseInt(dakikaSecimi.value);
+            var saniye = dakika * 60;
+
+            // Eğer bu ürün için önceden bir zamanlayıcı varsa, durduruyoruz
+            if (zamanlayicilar[productId]) {
+                clearInterval(zamanlayicilar[productId]);
+                zamanlayicilar[productId] = null; // Zamanlayıcıyı boşaltıyoruz
+            }
+
+            // Yeni zamanlayıcıyı başlatıyoruz
+            zamanlayicilar[productId] = setInterval(function () {
+                var dakikaKalan = Math.floor(saniye / 60);
+                var saniyeKalan = saniye % 60;
+
+                if (saniye == 0) {
+                    clearInterval(zamanlayicilar[productId]);
+                    geriSayim.innerHTML = "Zaman doldu!";
+                    return;
+                }
+
+                geriSayim.innerHTML = dakikaKalan + " dakika " + saniyeKalan + " saniye kaldı";
+                saniye--;
+            }, 1000);
+        }
+
+        // Belirli bir ürünün zamanlayıcısını durduran fonksiyon
+        function durdur(productId) {
+            // Eğer bu ürün için önceden bir zamanlayıcı varsa, durduruyoruz
+            if (zamanlayicilar[productId]) {
+                clearInterval(zamanlayicilar[productId]);
+                zamanlayicilar[productId] = null; // Zamanlayıcıyı boşaltıyoruz
+            }
+        }
+    </script>
+
+
+
 
     <script>
         function submitForm(qrCodeId) {
@@ -72,7 +152,7 @@
             row.style.display = 'none';
         }
     </script>
-    <script>
+   @*  <script>
         // Sayfanın 5 saniyede bir yenilenmesini sağlayan fonksiyon
         function refreshPage() {
             location.reload(); // Sayfayı yenile
@@ -80,7 +160,7 @@
 
         // 5 saniyede bir 'refreshPage' fonksiyonunu çağıran setInterval fonksiyonu
         setInterval(refreshPage, 5000); // 5000 milisaniye = 5 saniye
-    </script>
+    </script> *@
 
     <!-- Bootstrap JS ve bağımlılıkları -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
