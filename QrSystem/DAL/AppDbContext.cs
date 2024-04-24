@@ -16,8 +16,10 @@ namespace QrSystem.DAL
         public DbSet<QrCode> QrCodes { get; set; }
         public DbSet<SaxlanilanSifarish> SaxlanilanS { get; set; }
         public DbSet<ParentCategory> ParentsCategories { get; set; }
-        public DbSet<Restorant>Restorant{ get; set; }
-        public DbSet<Comment> Comments { get; set; }
-        public DbSet<Hesabat> Hesabats { get; set; }
+        public DbSet<Restorant> Restorant { get; set; }
+        public DbSet<BigParentCategory> BigParentCategory { get; set; }
+        public DbSet<Restorant> Restorants { get; set; }
+        public DbSet<Ofisant> Ofisant { get; set; }
+        public DbSet<Hesabat> Hesabats { get; set;}
     }
 }

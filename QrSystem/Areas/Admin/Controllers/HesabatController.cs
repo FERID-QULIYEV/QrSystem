@@ -49,10 +49,10 @@ namespace QrSystem.Areas.Admin.Controllers
 
             int restoranId = GetCurrentUserRestorantId();
 
-            IQueryable<Hesabat> query = _context.Hesabats.Include(p => p.Restorant)
-                                    .Where(p => p.RestorantId == restoranId);
+            IQueryable<Hesabat> query = _context.Hesabats.Include(p => p.Restorant).Include(p=>p.Restorant.Ofisants)
+                                        .Where(p => p.RestorantId == restoranId);
 
-            IQueryable<Hesabat> query1 = _context.Hesabats.Include(p => p.Restorant)
+            IQueryable<Hesabat> query1 = _context.Hesabats.Include(p => p.Restorant).Include(p => p.Restorant.Ofisants)
                                         .Where(p => p.RestorantId == restoranId);
 
             // Başlangıç ve bitiş tarihleri belirtilmişse, zaman aralığında filtrele
@@ -70,6 +70,7 @@ namespace QrSystem.Areas.Admin.Controllers
                 if (lastItem != null && lastItem1 != null)
                 {
                     lastItem.ToplamGelir -= lastItem1.ToplamGelir;
+                    lastItem.OfisantSayi -= lastItem1.OfisantSayi;
                 }
             }
 

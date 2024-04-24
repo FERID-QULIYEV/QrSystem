@@ -2,8 +2,8 @@
 @model HomeVM
 @using Microsoft.AspNetCore.Http
 @{
-    var qrCodeIdValue = ViewBag.QrCodeId ?? "" ;
-    
+    var qrCodeIdValue = ViewBag.QrCodeId ?? "";
+
 
 }
 <!DOCTYPE html>
@@ -45,7 +45,7 @@
 <body>
     <div id="wrapper">
         <div id="header">
-     
+
             <div class="header-content">
                 <div class="container">
                     <div class="row justify-content-between align-items-center">
@@ -186,7 +186,7 @@
                             </div>
                         </div>
 
-                      
+
                         <style>
                             /* CSS Dosyanızda */
 
@@ -205,10 +205,10 @@
                                 }
                                 else
                                 {
-                                  
+
                                 }
 
-                                
+
                             </strong>
                         </div>
                         <div class="col-2">
@@ -226,7 +226,7 @@
             <section class="section-content">
                 <div class="container">
                     <div class="row">
-                      
+
                         <div class=" mr-auto ml-auto">
 
 
@@ -405,26 +405,66 @@
                             @{
                                 ViewBag.ActiveCategoryId = Model.ParentsCategory.FirstOrDefault(c => c.Isactive)?.Id;
                             }
+                            @{
+                                ViewBag.ActiveBigCategoryId = Model.BigParentCategories.FirstOrDefault(c => c.IsActive)?.Id;
+                            }
 
-
-                            <div class=" category-filter" style="overflow: auto;" id="ddd">
+                            <div class="category-filter" style="overflow: auto;" id="ddd">
                                 <div class="category">
                                     <ul class="tabcontent-general allCategories">
-
-                                        @foreach (var item in Model.ParentsCategory)
+                                        @foreach (var item in Model.BigParentCategories)
                                         {
-                                            <button class="tablinks mybtn @(item.Id == ViewBag.ActiveCategoryId ? "active" : "")" onclick="openCity(event, '@item.Id')">@item.Name</button>
+                                            <button class="tablinks mybtn @(item.Id == ViewBag.ActiveBigCategoryId ? "active" : "")" onclick="openParentCategory('@item.Id', '@item.Name')">@item.Name</button>
                                         }
-
-
                                     </ul>
                                 </div>
                                 <div id="f-scroll"></div>
-
-
+                            </div>
+                            <div class="category-filter" style="overflow: auto;" id="ddd">
+                                <div class="category">
+                                    <ul class="tabcontent-general allCategories">
+                                        @foreach (var bigParentCategory in Model.BigParentCategories)
+                                        {
+                                            <div id="parent-category-@bigParentCategory.Id" class="parent-category" style="display: @(bigParentCategory.Id == ViewBag.ActiveBigCategoryId ? "block" : "none"); float: left; margin-right: 20px;">
+                                                @foreach (var parentCategory in Model.ParentsCategory.Where(pc => pc.bigParentCategoryId == bigParentCategory.Id))
+                                                {
+                                                    <!-- Düğme içinde metin yerine düğme etiketleri arasına metin ekleniyor -->
+                                                    <button class="tablinks mybtn @(parentCategory.Id == ViewBag.ActiveCategoryId ? "active" : "")" onclick="openCity(event, '@parentCategory.Id')" style="display: inline-block; margin-bottom: 25px; margin-right: 5px;">
+                                                        <span style="margin-bottom:20px">  @parentCategory.Name <!-- Metni burada düğme içinde gösteriyoruz -->  </span>
+                                                    </button>
+                                                }
+                                            </div>
+                                        }
+                                    </ul>
+                                </div>
+                                <div id="f-scroll"></div>
                             </div>
 
+
+
+
+
+                            <script>
+                                function openParentCategory(bigParentCategoryId, bigParentCategoryName) {
+                                    // Tüm ParentCategory bölümlerini gizle
+                                    var parentCategories = document.querySelectorAll('.parent-category');
+                                    parentCategories.forEach(function (parentCategory) {
+                                        parentCategory.style.display = 'none';
+                                    });
+
+                                    // İlgili ParentCategory bölümlerini göster
+                                    var parentCategory = document.getElementById('parent-category-' + bigParentCategoryId);
+                                    if (parentCategory) {
+                                        parentCategory.style.display = 'block';
+                                    }
+                                }
+                            </script>
+
+
+
+
                             <div class="container product1" style="" id="meals">
+
                                 @foreach (var item in Model.ParentsCategory)
                                 {
                                     var isActive = ViewBag.ActiveCategoryId == item.Id;
@@ -435,11 +475,11 @@
                                             <p></p>
                                         </div>
                                         <div class="row">
-                                            @if (item.Products != null )
+                                            @if (item.Products != null)
                                             {
                                                 @foreach (var item1 in item.Products)
                                                 {
-                                                      
+
                                                     <div class="desk col-lg-6 col-md-12" data-modifmap="">
                                                         <div class="product-container">
                                                             <div class="product-image">
@@ -565,11 +605,11 @@
                             </div>
                             <div class="button-holder text-center">
 
-                               @*  <div class="button-holder text-center">
-                                    <a href="meals9e2b.html?inpage=30&amp;page=2" class="button pagerAjax" data-loading-text="Yüklənir...">
-                                        Daha çox göstər
-                                    </a>
-                                    <link rel="next" href="meals9e2b.html?inpage=30&amp;page=2">
+                                @*  <div class="button-holder text-center">
+                                <a href="meals9e2b.html?inpage=30&amp;page=2" class="button pagerAjax" data-loading-text="Yüklənir...">
+                                Daha çox göstər
+                                </a>
+                                <link rel="next" href="meals9e2b.html?inpage=30&amp;page=2">
                                 </div> *@
                             </div>
                         </div>
@@ -580,161 +620,161 @@
         </main>
 
 
-     @*    <footer id="footer">
-            <div class="footer-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-8">
-                            <strong class="logo"><a href="https://mado.az/"><img src="https://mado.az/images/logo-white.svg" alt="MADO Restoran" width="143" height="55"></a></strong>
-                            <div class="footer-grid footer-accordion">
-                                <div>
-                                    <div class="address-widget fas fa-map-marker-alt">
-                                        <h3><a href="https://mado.az/restaurant/mado-ganjlik-mall-42">MADO Gənclik Mall</a></h3>
-                                        <address>Gənclik Mall (3-cü mərtəbə). <br><a href="tel:012 599-15-25 / 051 330-05-10">Tel: 012 599-15-25 / 051 330-05-10</a></address>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="address-widget fas fa-map-marker-alt">
-                                        <h3><a href="https://mado.az/restaurant/mado-narimanov-27">MADO Nərimanov</a></h3>
-                                        <address>N. Nərimanov r., Əhməd Rəcəbli 3.<br><a href="tel:012 566-78-94 / 051 330-02-10">Tel: 012 566-78-94 / 051 330-02-10</a></address>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="address-widget fas fa-map-marker-alt">
-                                        <h3><a href="https://mado.az/restaurant/mado-fountain-square-41">MADO Fəvvarələr meydanı</a></h3>
-                                        <address>Səbail r., Nigar Rəfibəyli 49a, Fəvvarələr meydanı. <br><a href="tel:012 498-19-01 / 051 330-04-10">Tel: 012 498-19-01 / 051 330-04-10</a></address>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="address-widget fas fa-map-marker-alt">
-                                        <h3><a href="https://mado.az/restaurant/mado-sumqait-727">MADO Sumqayıt</a></h3>
-                                        <address><p>Sumqayıt şəhəri, S.Vurğun küç., 58</p><br><a href="tel:">Tel: </a></address>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="address-widget fas fa-map-marker-alt">
-                                        <h3><a href="https://mado.az/restaurant/mado-sabail-18">MADO Səbail</a></h3>
-                                        <address>Səbail r., Mərdanov qard. 3 (Tarqovı)<br><a href="tel:012 598-19-01  /  051 330-01-10">Tel: 012 598-19-01  /  051 330-01-10</a></address>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="address-widget fas fa-map-marker-alt">
-                                        <h3><a href="https://mado.az/restaurant/mado-28mall-40">MADO 28 Mall</a></h3>
-                                        <address>28 Mall (4-cü mərtəbə).<br><a href="tel:012 499-87-06 / 051 330-03-10">Tel: 012 499-87-06 / 051 330-03-10</a></address>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="address-widget fas fa-map-marker-alt">
-                                        <h3><a href="https://mado.az/restaurant/mado-ahmedli-603">MADO Əhmədli</a></h3>
-                                        <address><p>Xətai r-nu, Məhəmməd Hadi küç., 116G</p><br><a href="tel:051 330-06-10">Tel: 051 330-06-10</a></address>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="address-widget fas fa-map-marker-alt">
-                                        <h3><a href="https://mado.az/restaurant/mado-baku-mall-601">MADO Baku Mall</a></h3>
-                                        <address><p>Baku Mall, 1-ci mərtəbə</p><br><a href="tel:070-330-06-10">Tel: 070-330-06-10</a></address>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="footer-grid">
-                                <div>
-                                    <ul class="footer-nav">
-                                        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-                                            <a href="special-menuce56.html?hl=az" title="Özəl təkliflər" class="" itemprop="url"><span val="Özəl təkliflər" itemprop="name">Özəl təkliflər</span></a>
-                                        </li>
-                                        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-                                            <a href="yenice56.html?hl=az" title="Menyuda yeni" class="" itemprop="url"><span val="Menyuda yeni" itemprop="name">Menyuda yeni</span></a>
-                                        </li>
-                                        <li class="on" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-                                            <a href="mealsce56.html?hl=az" title="Yeməklər" class="on" itemprop="url"><span val="Yeməklər" itemprop="name">Yeməklər</span></a>
-                                        </li>
-                                        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-                                            <a href="sweetsce56.html?hl=az" title="Şirniyyatlar" class="" itemprop="url"><span val="Şirniyyatlar" itemprop="name">Şirniyyatlar</span></a>
-                                        </li>
-                                        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-                                            <a href="ice-creamce56.html?hl=az" title="Dondurmalar" class="" itemprop="url"><span val="Dondurmalar" itemprop="name">Dondurmalar</span></a>
-                                        </li>
-                                        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-                                            <a href="bakeryce56.html?hl=az" title="Fırın məhsulları" class="" itemprop="url"><span val="Fırın məhsulları" itemprop="name">Fırın məhsulları</span></a>
-                                        </li>
-                                        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-                                            <a href="biznes-lanchce56.html?hl=az" title="Business Lunch" class="" itemprop="url"><span val="Business Lunch" itemprop="name">Business Lunch</span></a>
-                                        </li>
-                                        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-                                            <a href="drinksce56.html?hl=az" title="İçkilər" class="" itemprop="url"><span val="İçkilər" itemprop="name">İçkilər</span></a>
-                                        </li>
-                                        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-                                            <a href="mangal-menuce56.html?hl=az" title="Manqal menyu " class="" itemprop="url"><span val="Manqal menyu " itemprop="name">Manqal menyu </span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <ul class="footer-nav">
-                                        <li>
-                                            <a href="https://mado.az/menu?hl=az" title="Menyu" class="on" itemprop="url">						<span val="Menyu" itemprop="name">Menyu</span>					</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://mado.az/restaurant?hl=az" title="Restoranlar" class="" itemprop="url">						<span val="Restoranlar" itemprop="name">Restoranlar</span>					</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://mado.az/mado-azerbaijan?hl=az" title="Haqqımızda" class="" itemprop="url">						<span val="Haqqımızda" itemprop="name">Haqqımızda</span>					</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://mado.az/production-mado?hl=az" title="İstehsalat" class="" itemprop="url">						<span val="İstehsalat" itemprop="name">İstehsalat</span>					</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://mado.az/catering-mado?hl=az" title="İaşə xidməti" class="" itemprop="url">						<span val="İaşə xidməti" itemprop="name">İaşə xidməti</span>					</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://mado.az/vacancy?hl=az" title="Vakansiyalar" class="" itemprop="url">						<span val="Vakansiyalar" itemprop="name">Vakansiyalar</span>					</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <ul class="footer-nav">
-                                        <li><a href="https://mado.az/feedback">Bizimlə əlaqə</a></li>
-                                        <li><a href="https://mado.az/restaurant">MADO restoranları</a></li>
-                                        <li><a href="tel:"></a></li>
-                                        <li><a href="mailto:info@mado.az">info@mado.az</a></li>
-                                    </ul>
-                                </div>
-                                <div style="visibility: hidden;">
-                                    <strong class="title fab fa-instagram">madoazerbaycan</strong>
-                                    <ul class="media-list" id="instafeed">
-                                        <li><a href="#" target="_blank"><img src="../images/img27.jpg" alt="Image description" width="47" height="49"></a></li>
-                                        <li><a href="#" target="_blank"><img src="../images/img28.jpg" alt="Image description" width="47" height="49"></a></li>
-                                        <li><a href="#" target="_blank"><img src="../images/img29.jpg" alt="Image description" width="47" height="49"></a></li>
-                                        <li><a href="#" target="_blank"><img src="../images/img30.jpg" alt="Image description" width="47" height="49"></a></li>
-                                        <li><a href="#" target="_blank"><img src="../images/img31.jpg" alt="Image description" width="47" height="49"></a></li>
-                                        <li><a href="#" target="_blank"><img src="../images/img32.jpg" alt="Image description" width="47" height="49"></a></li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <strong class="title">Bizi izləyin</strong>
-                                    <ul class="social-networks with-captions">
-                                        <li><a class="fab fa-facebook-square" href="https://www.facebook.com/madoaz/" target="_blank">madoaz</a></li>
-                                        <li><a class="fab fa-instagram" href="https://www.instagram.com/madoazerbaycan/" target="_blank">madoazerbaycan</a></li>
-                                        <li><a class="fab fa-youtube" href="https://www.youtube.com/channel/UCtlHFLWXDf2T_YxOmdIAt5w" target="_blank">madoaz</a></li>
-                                        <li><a class="fab fa-twitter" href="https://twitter.com/madoazerbaijan" target="_blank">madoazerbaijan</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <p class="copy"><a href="https://mado.az/">MADO Azərbaycan</a> 2024 © <br>Bütün hüquqlar qorunur</p>
-                        </div>
-                        <div class="col-sm-4 text-right">
-                            <p class="by">Veb saytın hazırlanması <a href="https://one.az/" target="_blank">ONE Studio</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        @*    <footer id="footer">
+        <div class="footer-content">
+        <div class="container">
+        <div class="row">
+        <div class="col-8">
+        <strong class="logo"><a href="https://mado.az/"><img src="https://mado.az/images/logo-white.svg" alt="MADO Restoran" width="143" height="55"></a></strong>
+        <div class="footer-grid footer-accordion">
+        <div>
+        <div class="address-widget fas fa-map-marker-alt">
+        <h3><a href="https://mado.az/restaurant/mado-ganjlik-mall-42">MADO Gənclik Mall</a></h3>
+        <address>Gənclik Mall (3-cü mərtəbə). <br><a href="tel:012 599-15-25 / 051 330-05-10">Tel: 012 599-15-25 / 051 330-05-10</a></address>
+        </div>
+        </div>
+        <div>
+        <div class="address-widget fas fa-map-marker-alt">
+        <h3><a href="https://mado.az/restaurant/mado-narimanov-27">MADO Nərimanov</a></h3>
+        <address>N. Nərimanov r., Əhməd Rəcəbli 3.<br><a href="tel:012 566-78-94 / 051 330-02-10">Tel: 012 566-78-94 / 051 330-02-10</a></address>
+        </div>
+        </div>
+        <div>
+        <div class="address-widget fas fa-map-marker-alt">
+        <h3><a href="https://mado.az/restaurant/mado-fountain-square-41">MADO Fəvvarələr meydanı</a></h3>
+        <address>Səbail r., Nigar Rəfibəyli 49a, Fəvvarələr meydanı. <br><a href="tel:012 498-19-01 / 051 330-04-10">Tel: 012 498-19-01 / 051 330-04-10</a></address>
+        </div>
+        </div>
+        <div>
+        <div class="address-widget fas fa-map-marker-alt">
+        <h3><a href="https://mado.az/restaurant/mado-sumqait-727">MADO Sumqayıt</a></h3>
+        <address><p>Sumqayıt şəhəri, S.Vurğun küç., 58</p><br><a href="tel:">Tel: </a></address>
+        </div>
+        </div>
+        <div>
+        <div class="address-widget fas fa-map-marker-alt">
+        <h3><a href="https://mado.az/restaurant/mado-sabail-18">MADO Səbail</a></h3>
+        <address>Səbail r., Mərdanov qard. 3 (Tarqovı)<br><a href="tel:012 598-19-01  /  051 330-01-10">Tel: 012 598-19-01  /  051 330-01-10</a></address>
+        </div>
+        </div>
+        <div>
+        <div class="address-widget fas fa-map-marker-alt">
+        <h3><a href="https://mado.az/restaurant/mado-28mall-40">MADO 28 Mall</a></h3>
+        <address>28 Mall (4-cü mərtəbə).<br><a href="tel:012 499-87-06 / 051 330-03-10">Tel: 012 499-87-06 / 051 330-03-10</a></address>
+        </div>
+        </div>
+        <div>
+        <div class="address-widget fas fa-map-marker-alt">
+        <h3><a href="https://mado.az/restaurant/mado-ahmedli-603">MADO Əhmədli</a></h3>
+        <address><p>Xətai r-nu, Məhəmməd Hadi küç., 116G</p><br><a href="tel:051 330-06-10">Tel: 051 330-06-10</a></address>
+        </div>
+        </div>
+        <div>
+        <div class="address-widget fas fa-map-marker-alt">
+        <h3><a href="https://mado.az/restaurant/mado-baku-mall-601">MADO Baku Mall</a></h3>
+        <address><p>Baku Mall, 1-ci mərtəbə</p><br><a href="tel:070-330-06-10">Tel: 070-330-06-10</a></address>
+        </div>
+        </div>
+        </div>
+        <div class="footer-grid">
+        <div>
+        <ul class="footer-nav">
+        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+        <a href="special-menuce56.html?hl=az" title="Özəl təkliflər" class="" itemprop="url"><span val="Özəl təkliflər" itemprop="name">Özəl təkliflər</span></a>
+        </li>
+        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+        <a href="yenice56.html?hl=az" title="Menyuda yeni" class="" itemprop="url"><span val="Menyuda yeni" itemprop="name">Menyuda yeni</span></a>
+        </li>
+        <li class="on" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+        <a href="mealsce56.html?hl=az" title="Yeməklər" class="on" itemprop="url"><span val="Yeməklər" itemprop="name">Yeməklər</span></a>
+        </li>
+        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+        <a href="sweetsce56.html?hl=az" title="Şirniyyatlar" class="" itemprop="url"><span val="Şirniyyatlar" itemprop="name">Şirniyyatlar</span></a>
+        </li>
+        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+        <a href="ice-creamce56.html?hl=az" title="Dondurmalar" class="" itemprop="url"><span val="Dondurmalar" itemprop="name">Dondurmalar</span></a>
+        </li>
+        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+        <a href="bakeryce56.html?hl=az" title="Fırın məhsulları" class="" itemprop="url"><span val="Fırın məhsulları" itemprop="name">Fırın məhsulları</span></a>
+        </li>
+        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+        <a href="biznes-lanchce56.html?hl=az" title="Business Lunch" class="" itemprop="url"><span val="Business Lunch" itemprop="name">Business Lunch</span></a>
+        </li>
+        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+        <a href="drinksce56.html?hl=az" title="İçkilər" class="" itemprop="url"><span val="İçkilər" itemprop="name">İçkilər</span></a>
+        </li>
+        <li class="" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+        <a href="mangal-menuce56.html?hl=az" title="Manqal menyu " class="" itemprop="url"><span val="Manqal menyu " itemprop="name">Manqal menyu </span></a>
+        </li>
+        </ul>
+        </div>
+        <div>
+        <ul class="footer-nav">
+        <li>
+        <a href="https://mado.az/menu?hl=az" title="Menyu" class="on" itemprop="url">						<span val="Menyu" itemprop="name">Menyu</span>					</a>
+        </li>
+        <li>
+        <a href="https://mado.az/restaurant?hl=az" title="Restoranlar" class="" itemprop="url">						<span val="Restoranlar" itemprop="name">Restoranlar</span>					</a>
+        </li>
+        <li>
+        <a href="https://mado.az/mado-azerbaijan?hl=az" title="Haqqımızda" class="" itemprop="url">						<span val="Haqqımızda" itemprop="name">Haqqımızda</span>					</a>
+        </li>
+        <li>
+        <a href="https://mado.az/production-mado?hl=az" title="İstehsalat" class="" itemprop="url">						<span val="İstehsalat" itemprop="name">İstehsalat</span>					</a>
+        </li>
+        <li>
+        <a href="https://mado.az/catering-mado?hl=az" title="İaşə xidməti" class="" itemprop="url">						<span val="İaşə xidməti" itemprop="name">İaşə xidməti</span>					</a>
+        </li>
+        <li>
+        <a href="https://mado.az/vacancy?hl=az" title="Vakansiyalar" class="" itemprop="url">						<span val="Vakansiyalar" itemprop="name">Vakansiyalar</span>					</a>
+        </li>
+        </ul>
+        </div>
+        <div>
+        <ul class="footer-nav">
+        <li><a href="https://mado.az/feedback">Bizimlə əlaqə</a></li>
+        <li><a href="https://mado.az/restaurant">MADO restoranları</a></li>
+        <li><a href="tel:"></a></li>
+        <li><a href="mailto:info@mado.az">info@mado.az</a></li>
+        </ul>
+        </div>
+        <div style="visibility: hidden;">
+        <strong class="title fab fa-instagram">madoazerbaycan</strong>
+        <ul class="media-list" id="instafeed">
+        <li><a href="#" target="_blank"><img src="../images/img27.jpg" alt="Image description" width="47" height="49"></a></li>
+        <li><a href="#" target="_blank"><img src="../images/img28.jpg" alt="Image description" width="47" height="49"></a></li>
+        <li><a href="#" target="_blank"><img src="../images/img29.jpg" alt="Image description" width="47" height="49"></a></li>
+        <li><a href="#" target="_blank"><img src="../images/img30.jpg" alt="Image description" width="47" height="49"></a></li>
+        <li><a href="#" target="_blank"><img src="../images/img31.jpg" alt="Image description" width="47" height="49"></a></li>
+        <li><a href="#" target="_blank"><img src="../images/img32.jpg" alt="Image description" width="47" height="49"></a></li>
+        </ul>
+        </div>
+        <div>
+        <strong class="title">Bizi izləyin</strong>
+        <ul class="social-networks with-captions">
+        <li><a class="fab fa-facebook-square" href="https://www.facebook.com/madoaz/" target="_blank">madoaz</a></li>
+        <li><a class="fab fa-instagram" href="https://www.instagram.com/madoazerbaycan/" target="_blank">madoazerbaycan</a></li>
+        <li><a class="fab fa-youtube" href="https://www.youtube.com/channel/UCtlHFLWXDf2T_YxOmdIAt5w" target="_blank">madoaz</a></li>
+        <li><a class="fab fa-twitter" href="https://twitter.com/madoazerbaijan" target="_blank">madoazerbaijan</a></li>
+        </ul>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="footer-bottom">
+        <div class="container">
+        <div class="row">
+        <div class="col-sm-4">
+        <p class="copy"><a href="https://mado.az/">MADO Azərbaycan</a> 2024 © <br>Bütün hüquqlar qorunur</p>
+        </div>
+        <div class="col-sm-4 text-right">
+        <p class="by">Veb saytın hazırlanması <a href="https://one.az/" target="_blank">ONE Studio</a></p>
+        </div>
+        </div>
+        </div>
+        </div>
         </footer> *@
 
     </div>
@@ -999,7 +1039,7 @@
         });
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  
+
 
 </body>
 

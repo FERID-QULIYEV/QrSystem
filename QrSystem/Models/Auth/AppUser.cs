@@ -8,5 +8,6 @@ namespace QrSystem.Models.Auth
         public bool IsActivated { get; set; }
         public int? RestorantId { get; set; }
         public Restorant Restorant { get; set; }
+      
     }
 }

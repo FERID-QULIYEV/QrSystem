@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\R\Desktop\QrSystem\QrSystem
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/R/Desktop/QrSystem/QrSystem/Areas/AddRestoran/Views/Ofisant/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRkUmVzdG9yYW5cVmlld3NcT2Zpc2FudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/R/Desktop/QrSystem/QrSystem/Areas/AddRestoran/Views/Restorant/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRkUmVzdG9yYW5cVmlld3NcUmVzdG9yYW50XENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -30,6 +34,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRkUmVzdG9yYW5cVmlld3NcUmVzdG9yYW50XFVwZGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/R/Desktop/QrSystem/QrSystem/Areas/AddRestoran/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRkUmVzdG9yYW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/R/Desktop/QrSystem/QrSystem/Areas/AddRestoran/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRkUmVzdG9yYW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/R/Desktop/QrSystem/QrSystem/Areas/Admin/Views/AllBasket/Deleted.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWxsQmFza2V0XERlbGV0ZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -38,8 +50,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWxsQmFza2V0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/R/Desktop/QrSystem/QrSystem/Areas/Admin/Views/BigParentCategory/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmlnUGFyZW50Q2F0ZWdvcnlcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/R/Desktop/QrSystem/QrSystem/Areas/Admin/Views/BigParentCategory/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmlnUGFyZW50Q2F0ZWdvcnlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/R/Desktop/QrSystem/QrSystem/Areas/Admin/Views/BigParentCategory/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmlnUGFyZW50Q2F0ZWdvcnlcVXBkYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/R/Desktop/QrSystem/QrSystem/Areas/Admin/Views/Hesabat/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSGVzYWJhdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/R/Desktop/QrSystem/QrSystem/Areas/Admin/Views/Ofisant/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT2Zpc2FudFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/R/Desktop/QrSystem/QrSystem/Areas/Admin/Views/Ofisant/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT2Zpc2FudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/R/Desktop/QrSystem/QrSystem/Areas/Admin/Views/Parent/Create.cshtml]

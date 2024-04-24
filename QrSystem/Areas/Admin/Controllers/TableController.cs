@@ -32,7 +32,7 @@ namespace QrSystem.Areas.Admin.Controllers
             int restorantId = GetCurrentUserRestorantId();
 
             // Kullanıcının bağlı olduğu restorana ait masaları getirin
-            var tables = _context.Tables.Include(d=>d.QrCode.Restorant).Where(t => t.QrCode.RestorantId == restorantId).ToList();
+            var tables = _context.Tables.Include(d=>d.QrCode.Restorant).Include(d=>d.Ofisant).Where(t => t.QrCode.RestorantId == restorantId&& t.Ofisant.RestorantId==restorantId).ToList();
 
             return View(tables);
         }
@@ -50,6 +50,14 @@ namespace QrSystem.Areas.Admin.Controllers
             }).ToList();
 
             ViewBag.QrCode = parentiTEMs;
+            List<Ofisant> ofisants= _context.Ofisant.Where(p => p.RestorantId == restorantId).ToList();
+            List<SelectListItem> Select = ofisants.Select(m => new SelectListItem
+            {
+                Value = m.Id.ToString(),
+                Text = m.Name
+            }).ToList();
+
+            ViewBag.Ofisants = Select;
             // Kullanıcının bağlı olduğu restoranın ID'sini alın
 
             // Restoran ID'si bulunamazsa hata mesajı döndürün veya uygun bir işlem yapın
@@ -70,7 +78,7 @@ namespace QrSystem.Areas.Admin.Controllers
             // Kullanıcının bağlı olduğu restoranın ID'sini alın
             int restorantId = GetCurrentUserRestorantId();
             
-            RestourantTables tables = new RestourantTables { QrCodeId = tableVM.QrCodeId, TableNumber = tableVM.TableNumber, DateTime = DateTime.Now  };
+            RestourantTables tables = new RestourantTables { OfisantId=tableVM.OfisantId,QrCodeId = tableVM.QrCodeId, TableNumber = tableVM.TableNumber, DateTime = DateTime.Now  };
             _context.Tables.Add(tables);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
@@ -86,6 +94,14 @@ namespace QrSystem.Areas.Admin.Controllers
             }).ToList();
 
             ViewBag.QrCode = BigparentiTEMs;
+            List<Ofisant> ofisants= _context.Ofisant.ToList();
+            List<SelectListItem> Select = ofisants.Where(p => p.RestorantId == restorantId).Select(m => new SelectListItem
+            {
+                Value = m.Id.ToString(),
+                Text = m.Name
+            }).ToList();
+
+            ViewBag.Ofisants = Select;
             if (id == null || id == 0) return BadRequest();
             RestourantTables table = _context.Tables.Find(id);
             if (table is null) return NotFound();
@@ -102,10 +118,19 @@ namespace QrSystem.Areas.Admin.Controllers
                 Text = p.QRCode.ToString()
             }).ToList();
             ViewBag.QrCode = BigparentiTEMs;
+            List<Ofisant> ofisants = _context.Ofisant.ToList();
+            List<SelectListItem> Select = ofisants.Where(p => p.RestorantId == restorantId).Select(m => new SelectListItem
+            {
+                Value = m.Id.ToString(),
+                Text = m.Name
+            }).ToList();
+
+            ViewBag.Ofisants = Select;
             if (id == null || id == 0 || id != table.Id || table is null) return BadRequest();
             RestourantTables exist = _context.Tables.Find(table.Id);
             exist.TableNumber = table.TableNumber;
             exist.QrCode = table.QrCode;
+            exist.OfisantId = table.OfisantId;
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }

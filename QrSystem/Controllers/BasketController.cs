@@ -62,16 +62,17 @@ namespace QrSystem.Controllers
 
             foreach (var basketItem in basketVMList)
             {
-                var product = _appDbContext.Products.FirstOrDefault(p => p.Id == basketItem.ProductId);
+                var product = _appDbContext.Products.Include(o => o.Restorant.Ofisants).FirstOrDefault(p => p.Id == basketItem.ProductId);
                 if (product != null)
                 {
                     basketItemVMs.Add(new BasketİtemVM
                     {
                         Name = product.Name,
                         Id = product.Id,
-                        Price=product.Price,
-                        ImagePath=product.ImagePath,
+                        Price = product.Price,
+                        ImagePath = product.ImagePath,
                         QrCodeId = qrCodeId.Value,
+                        OfisantName = product.Restorant.Ofisants.FirstOrDefault().Name,
                         ProductId = basketItem.ProductId,
                         ProductCount = basketItem.Count // Ürün sayısını burada ekleyin
                     });
@@ -80,7 +81,7 @@ namespace QrSystem.Controllers
 
             return View(basketItemVMs);
         }
-      
+
 
         [HttpPost]
         public IActionResult AddBasket(int qrCodeId, int productId)
@@ -107,7 +108,6 @@ namespace QrSystem.Controllers
             {
                 basketItem.Count++;
             }
-
             else
             {
                 basketVMList.Add(new BasketVM { ProductId = productId, Count = 1 });
@@ -116,7 +116,7 @@ namespace QrSystem.Controllers
             var cookieOptions = new CookieOptions { Expires = DateTime.Now.AddDays(1) };
             Response.Cookies.Append(basketCookieName, JsonConvert.SerializeObject(basketVMList), cookieOptions);
 
-            return RedirectToAction("Index","Home", new { qrCodeId });
+            return RedirectToAction("Index", "Home", new { qrCodeId });
         }
 
 
@@ -166,18 +166,46 @@ namespace QrSystem.Controllers
             {
                 foreach (var order in ordersToUpdate)
                 {
-                    order.ProductCount = 0; // Ürün miktarını 0 yap
-                    order.IsDeleted = true;
+                    // Siparişin oluşturulma zamanını kontrol et
+                    var now = DateTime.Now;
+                    var difference = (now - order.DateTime).TotalMinutes;
+
+                    // Belirtilen süre (örneğin 4 dakika) içinde mi kontrol et
+                    if (difference <= 1)
+                    {
+                        // Belirtilen süre içindeyse, siparişi sil
+                        order.ProductCount = 0; // Ürün miktarını 0 yap
+                        order.IsDeleted = true;
+                        _appDbContext.SaveChanges();
+                    }
+                    else
+                    {
+                        // Belirtilen sürenin dışında ise, isDeleted'i true yap
+                        order.IsDeleted = false;
+                        _appDbContext.SaveChanges();
+                    }
                 }
-                _appDbContext.SaveChanges();
             }
 
             SetBasketItemCountInViewBag();
-
             return RedirectToAction("Index", new { qrCodeId });
         }
 
+        private DateTime? GetConfirmationTime(int qrCodeId)
+        {
+            // Siparişin onaylanma zamanını veritabanından al veya başka bir yerden alabilirsiniz.
+            // Örnek olarak, burada veritabanından alınması durumunda bir örnek veriyorum:
 
+            var order = _appDbContext.SaxlanilanS
+                                    .FirstOrDefault(o => o.QrCodeId == qrCodeId && !o.IsDeleted);
+
+            if (order != null && order.DateTime != null)
+            {
+                return order.DateTime;
+            }
+
+            return null;
+        }
 
         [HttpPost]
         public IActionResult UpdateBasketItem(int qrCodeId, int productId, string action)
@@ -252,32 +280,58 @@ namespace QrSystem.Controllers
         [HttpPost]
         public IActionResult Checkout(int qrCodeId)
         {
-            // Belirli bir QR koduna sahip sepet ürünlerini al 
+            // Belirli bir QR koduna sahip sepet ürünlerini al
             List<BasketİtemVM> productsInCart = GetProductsInCart(qrCodeId);
+
             // Sepetteki ürünleri onayla ve veritabanına kaydet
-            ConfirmAndSaveProducts(qrCodeId, productsInCart );
+            ConfirmAndSaveProducts(qrCodeId, productsInCart);
 
             // urun.cshtml sayfasına yönlendir
-            return RedirectToAction("Index", new {qrCodeId});
+            return RedirectToAction("Index", new { qrCodeId });
         }
-        private void ConfirmAndSaveProducts(int qrCodeId, List<BasketİtemVM> approvedProducts )
+        private void ConfirmAndSaveProducts(int qrCodeId, List<BasketİtemVM> approvedProducts)
         {
             foreach (var product in approvedProducts)
             {
                 // Veritabanında ürün var mı ve silinmemiş mi diye kontrol et
                 var existingOrder = _appDbContext.SaxlanilanS
-                    .FirstOrDefault(o => o.ProductId == product.ProductId && o.QrCodeId == qrCodeId  && !o.IsDeleted);
+                    .FirstOrDefault(o => o.ProductId == product.ProductId && o.QrCodeId == qrCodeId && !o.IsDeleted);
 
                 if (existingOrder != null)
                 {
-                    // Ürün zaten varsa ve silinmemişse, miktarı gelen miktar ile güncelle
-                    existingOrder.ProductCount = product.ProductCount; // Doğrudan onaylanan miktarı ata
+                    // Eğer ürünün teslim zamanı belirlenmişse, yeni bir sipariş gibi kaydet
+                    if (existingOrder.DateTime != null)
+                    {
+                        // Yeni bir sipariş oluştur
+                        var newOrder = new SaxlanilanSifarish
+                        {
+                            Comment = product.Comment,
+                            QrCodeId = qrCodeId,
+                            Name = product.Name,
+                            ProductId = product.ProductId,
+                            Description = product.Description,
+                            Price = product.Price,
+                            ProductCount = product.ProductCount, // Onaylanan miktar
+                            ImagePath = product.ImagePath,
+                            TableName = product.TableName,
+                            RestorantId = product.ResTorantId,
+                            IsDeleted = false, // Yeni kayıtlar için IsDeleted varsayılan olarak false olmalı
+                            DateTime = DateTime.Now,
+                        };
+                        _appDbContext.SaxlanilanS.Add(newOrder);
+                    }
+                    else
+                    {
+                        // Ürün zaten varsa ve silinmemişse, miktarı gelen miktar ile güncelle
+                        existingOrder.ProductCount = product.ProductCount; // Doğrudan onaylanan miktarı ata
+                    }
                 }
                 else
                 {
                     // Eğer ürün veritabanında yoksa veya silinmişse, yeni bir kayıt ekle
                     var newOrder = new SaxlanilanSifarish
                     {
+                        Comment = product.Comment,
                         QrCodeId = qrCodeId,
                         Name = product.Name,
                         ProductId = product.ProductId,
@@ -287,15 +341,11 @@ namespace QrSystem.Controllers
                         ImagePath = product.ImagePath,
                         TableName = product.TableName,
                         RestorantId = product.ResTorantId,
-                        IsDeleted = false // Yeni kayıtlar için IsDeleted varsayılan olarak false olmalı
+                        IsDeleted = false, // Yeni kayıtlar için IsDeleted varsayılan olarak false olmalı
+                        DateTime = DateTime.Now
                     };
-                    
                     _appDbContext.SaxlanilanS.Add(newOrder);
                 }
-                //var comment1 = new Comment
-                //{
-                //    Comments = comment.Comments
-                //};
             }
 
             // Değişiklikleri veritabanına kaydet
@@ -372,8 +422,9 @@ namespace QrSystem.Controllers
                             Price = product.Price,
                             ProductCount = item.Count,
                             ImagePath = product.ImagePath,
-                            ResTorantId=product.RestorantId,
+                            ResTorantId = product.RestorantId,
                             TableName = tableName,
+
                         });
                     }
                 }

@@ -7,19 +7,17 @@ using QrSystem.DAL;
 using QrSystem.Models;
 using QrSystem.Models.Auth;
 using QrSystem.ViewModel;
-using System.Linq;
 using System.Security.Claims;
 
 namespace QrSystem.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Moderator")]
-    public class AllBasketController: Controller
+    public class AllBasketController : Controller
     {
         private const string COOKIES_BASKET = "basketVM";
         private readonly AppDbContext _appDbContext;
         private readonly UserManager<AppUser> _userManager;
-        int count=0;
         public AllBasketController(AppDbContext appDbContext, UserManager<AppUser> userManager)
         {
             _appDbContext = appDbContext;
@@ -39,7 +37,7 @@ namespace QrSystem.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public IActionResult DeleteProducts(int qrCodeId,HesabatVM hesabatvm)
+        public IActionResult DeleteProducts(int qrCodeId)
         {
             try
             {
@@ -50,35 +48,13 @@ namespace QrSystem.Areas.Admin.Controllers
                 var productsToDelete = _appDbContext.SaxlanilanS
                     .Where(p => p.QrCodeId == qrCodeId && p.RestorantId == restoranId)
                     .ToList();
-                                                     
+
                 // Bulunan ürünlerin IsDeleted özelliğini true olarak güncelle
-                double Gelir = 0;
-
-                int say = 1;
-
                 foreach (var product in productsToDelete)
                 {
                     product.IsDeleted = true;
-                    if (restoranId == product.RestorantId) { Gelir += product.Price * product.ProductCount; }
-
-                    //if (productsToDelete)
-                    //{
-
-                    //}
-                    say = productsToDelete.Count;
                 }
-                hesabatvm.ToplamGelir = Gelir;
-                hesabatvm.RestoranId= restoranId;
-                Hesabat hesabat = new Hesabat()
-                {
-                    SifarislerSayi = say,
-                    DateTime = DateTime.Now,
-                    ToplamGelir = Gelir,
-                    RestorantId = hesabatvm.RestoranId,
 
-                };
-                //hesabat.SifarislerSayi = saxlanilan.SifarislerSayi;
-                _appDbContext.Hesabats.Add(hesabat);
                 _appDbContext.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -89,7 +65,6 @@ namespace QrSystem.Areas.Admin.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
-
         public IActionResult Index()
         {
             var viewModel = new UrunlerViewModel();
@@ -98,36 +73,10 @@ namespace QrSystem.Areas.Admin.Controllers
             int restoranId = GetCurrentUserRestorantId();
 
             // Tüm onaylanmış ürünleri giriş yapılan restorana ait olanları veritabanından al
-            var approvedProducts = _appDbContext.SaxlanilanS
+            var approvedProducts = _appDbContext.SaxlanilanS?
                 .Where(a => !a.IsDeleted && a.RestorantId == restoranId)
                 .ToList();
-
-            // Veri var mı kontrol edelim
-            //if (approvedProducts.Any())
-            //{
-            //    viewModel.saxlanilanSifarishes = approvedProducts;
-
-            //    // Her bir ürünün fiyatını toplam fiyata ekle
-            //    foreach (var product in approvedProducts)
-            //    {
-            //        totalPrices += product.Price * product.ProductCount;
-            //    }
-            //}
-            //else
-            //{
-            //    // Veri yoksa, bir boş liste atayalım veya null olarak bırakalım
-            //    viewModel.saxlanilanSifarishes = new List<SaxlanilanSifarish>(); // veya null
-            //}
-            // Veri var mı kontrol edelim
-            if (approvedProducts.Any())
-            {
-                viewModel.saxlanilanSifarishes = approvedProducts;
-            }
-            else
-            {
-                // Veri yoksa, bir boş liste atayalım veya null olarak bırakalım
-                viewModel.saxlanilanSifarishes = new List<SaxlanilanSifarish>(); // veya null
-            }
+            var Ofisant = _appDbContext.Ofisant.ToList();
 
             foreach (var product in approvedProducts)
             {
@@ -142,21 +91,27 @@ namespace QrSystem.Areas.Admin.Controllers
                     viewModel.UrunlerByQrCodeAndTable[product.QrCodeId][product.TableName] = new List<BasketİtemVM>();
                 }
 
-                viewModel.UrunlerByQrCodeAndTable[product.QrCodeId][product.TableName].Add(new BasketİtemVM
+                // Her bir sipariş için ayrı bir BasketİtemVM oluşturun
+                var basketItem = new BasketİtemVM
                 {
+                    Id = product.Id,
+                    ProductId = product.ProductId,
+                    QrCodeId = product.QrCodeId,
                     Name = product.Name,
                     Description = product.Description,
                     Price = product.Price,
                     ProductCount = product.ProductCount,
                     ImagePath = product.ImagePath,
                     TableName = product.TableName,
-                });
-                //viewModel.Count+=product.ProductCount;
+                    OfisantName = product.OfisantName
+                };
+
+                // ViewModel'e ekle
+                viewModel.UrunlerByQrCodeAndTable[product.QrCodeId][product.TableName].Add(basketItem);
             }
 
             return View(viewModel);
         }
-
 
         private int GetCurrentUserRestorantId()
         {
@@ -166,10 +121,27 @@ namespace QrSystem.Areas.Admin.Controllers
             // Kullanıcının bağlı olduğu restoranın ID'sini veritabanından alın
             var user = _userManager.FindByIdAsync(userId).Result;
             var restorantId = user.RestorantId;
-
+           
             return restorantId.Value;
         }
 
+        [HttpPost]
+        public IActionResult TimeBashlat(int selectedMinute, int productId, int qrCodeId, int siparisId)
+        {
+            var siparis = _appDbContext.SaxlanilanS.FirstOrDefault(s => s.Id == siparisId && s.ProductId == productId && s.QrCodeId == qrCodeId && !s.IsDeleted);
+
+            if (siparis != null)
+            {
+                // Seçilen dakikayı DateTime nesnesine ekleyin
+                siparis.DateTime = DateTime.Now.AddMinutes(selectedMinute);
+                _appDbContext.SaveChanges();
+
+                ViewBag.ProductId = productId; // ViewBag'e productId değerini ekleyin
+                return RedirectToAction("Index"); // Başka bir sayfaya yönlendirilebilir
+            }
+
+            return NotFound(); // Sipariş bulunamadı durumu
+        }
 
 
         //private Dictionary<int, Dictionary<string, List<BasketİtemVM>>> GetApprovedProducts()

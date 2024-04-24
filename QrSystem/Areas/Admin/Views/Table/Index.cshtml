@@ -7,9 +7,10 @@
 
                 <th>Id</th>
                 <th>TableNumber</th>
+                <th>Ofisant</th>
                 <th>QrCodeId</th>
-                <th>CreateTime</th>
                <th>RestorantName</th>
+                <th>CreateTime</th>
 
                 <th colspan="2">Action</th>
             </tr>
@@ -20,6 +21,7 @@
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.TableNumber</td>
+                    <td>@item.Ofisant.Name</td>
                     <td>@item.QrCodeId</td>
                     <td>@item.QrCode.Restorant.RestorantName</td>
                     <td>@item.DateTime</td>

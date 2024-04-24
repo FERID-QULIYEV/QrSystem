@@ -77,7 +77,7 @@ namespace QrSystem.Controllers
         public async Task<IActionResult> Login(LoginVM login, string? ReturnUrl)
         {
             if (!ModelState.IsValid) return View(login);
-            AppUser user = await _userManager.FindByEmailAsync(login.Email);
+            AppUser user = await _userManager.FindByEmailAsync(login.Email); 
             if (user == null)
             {
                 ModelState.AddModelError("", "Email or Password is wrong!");

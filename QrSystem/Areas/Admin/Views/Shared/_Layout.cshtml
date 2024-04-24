@@ -219,9 +219,19 @@
                     <span class="menu-title">Hesabat</span>
                 </a>
             </li>
-
-
-                </ul>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Ofisant" asp-action="Index">
+                    <i class="mdi mdi-home menu-icon"></i>
+                    <span class="menu-title">Ofisant</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                        <a class="nav-link" asp-controller="BigParentCategory" asp-action="Index">
+                    <i class="mdi mdi-home menu-icon"></i>
+                            <span class="menu-title">BigParentCategory</span>
+                </a>
+            </li>
+            </ul>
       </nav>
     <div>
         @RenderBody()

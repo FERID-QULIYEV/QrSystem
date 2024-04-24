@@ -23,6 +23,23 @@
                 <label asp-for="TableNumber"></label>
                 <input asp-for="TableNumber" class="form-control">
                 <span asp-validation-for="TableNumber" class="text-danger"></span>
+
+                <label asp-for="OfisantId"></label>
+                <select asp-for="OfisantId" class="form-control">
+                    <option value="">Seçiniz</option>
+                    @if (ViewBag.Ofisants != null)
+                    {
+                        foreach (SelectListItem product in ViewBag.Ofisants)
+                        {
+                            var modelId = Convert.ToInt32(product.Value);
+                            var models = ViewBag.Ofisants as List<Ofisant>;
+                            var model = models?.FirstOrDefault(m => m.Id == modelId);
+
+                            <option value="@product.Value">@product.Text</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="OfisantId"></span>
             </div>
             <button class="btn btn-success" type="submit">Submit</button>
         </form>
